@@ -6,7 +6,6 @@ class UserRepository {
     const user = await database.get("SELECT * FROM users WHERE email = (?)", [
       email,
     ])
-    console.log(user);
     return user
   }
 
