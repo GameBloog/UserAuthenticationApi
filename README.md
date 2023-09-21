@@ -19,15 +19,15 @@ Starts the API in production mode using [PM2](https://pm2.io/). Make sure you ha
 
 Starts the API in development mode using Nodemon.
 
-### `npm dev`
+### `npm run dev`
 
 Runs the latest database migration using Knex.
 
-### `npm migrate`
+### `npm run migrate`
 
 Launches the test runner Jest in watch mode.
 
-### `npm test`
+### `npm run test`
 
 ## Authentication
 
