@@ -1,4 +1,3 @@
-```markdown
 # User Authentication API
 
 Welcome to the User Authentication API. This API allows you to create new users, authenticate, manage notes and tags, update profile information, and upload avatars. Below, you will find detailed information about the endpoints and how to use them.
