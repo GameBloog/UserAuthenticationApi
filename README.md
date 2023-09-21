@@ -1,124 +1,123 @@
-Claro, vou formatar as informações em um arquivo README.md para você:
-
 ```markdown
-# API de Autenticação de Usuário
+# User Authentication API
 
-Bem-vindo à API de Autenticação de Usuário. Esta API permite criar novos usuários, autenticar-se, gerenciar notas e tags, atualizar informações de perfil e fazer upload de avatares. A seguir, você encontrará informações detalhadas sobre os endpoints e como usá-los.
+Welcome to the User Authentication API. This API allows you to create new users, authenticate, manage notes and tags, update profile information, and upload avatars. Below, you will find detailed information about the endpoints and how to use them.
 
-## Visão Geral
+## Overview
 
-Esta API foi desenvolvida em Node.js e tem como propósito criar novos usuários no banco de dados, autenticar usuários existentes na plataforma e fornecer funcionalidades relacionadas a notas e tags. Ela suporta os métodos HTTP GET, POST, PUT e DELETE.
+This API was developed in Node.js and aims to create new users in the database, authenticate existing users on the platform, and provide functionality related to notes and tags. It supports the HTTP methods GET, POST, PUT, and DELETE.
 
-## Autenticação
+## Authentication
 
-Para acessar os endpoints protegidos, é necessário fornecer um token de autenticação válido no cabeçalho de autorização (`Authorization: Bearer token_de_autenticacao`). Você pode obter o token fazendo login usando o endpoint `/api/sessions`.
+To access protected endpoints, you need to provide a valid authentication token in the authorization header (`Authorization: Bearer authentication_token`). You can obtain the token by logging in using the `/api/sessions` endpoint.
 
-## Endpoints Disponíveis
+## Available Endpoints
 
-A seguir, estão os endpoints disponíveis nesta API:
+Below are the available endpoints in this API:
 
-### 1. Criar um Novo Usuário
+### 1. Create a New User
 
-- **Método HTTP**: POST
+- **HTTP Method**: POST
 - **Endpoint**: `/api/users`
-- **Descrição**: Cria um novo usuário no sistema.
-- **Parâmetros da Solicitação**:
-  - `name` (string, obrigatório): Nome do usuário.
-  - `email` (string, obrigatório): Endereço de e-mail do usuário.
-  - `password` (string, obrigatório): Senha do usuário.
-- **Resposta de Sucesso**:
-  - Código de status: 201 (Created)
-- **Resposta de Erro**:
-  - Pode retornar um código de erro 400 (Bad Request) se a solicitação estiver ausente de informações obrigatórias ou se o e-mail já estiver em uso.
+- **Description**: Creates a new user in the system.
+- **Request Parameters**:
+  - `name` (string, required): User's name.
+  - `email` (string, required): User's email address.
+  - `password` (string, required): User's password.
+- **Success Response**:
+  - Status Code: 201 (Created)
+- **Error Response**:
+  - It may return a 400 (Bad Request) error code if the request is missing mandatory information or if the email is already in use.
 
-#### Exemplo de Solicitação:
+#### Example Request:
 ```http
 POST /api/users
-Authorization: Bearer token_de_autenticacao
+Authorization: Bearer authentication_token
 Content-Type: application/json
 
 {
-  "name": "Nome do Usuário",
-  "email": "usuario@example.com",
-  "password": "senha_segura"
+  "name": "User's Name",
+  "email": "user@example.com",
+  "password": "secure_password"
 }
 ```
 
-### 2. Atualizar Informações de Perfil do Usuário
+### 2. Update User Profile Information
 
-- **Método HTTP**: PUT
+- **HTTP Method**: PUT
 - **Endpoint**: `/api/users`
-- **Descrição**: Permite que um usuário autenticado atualize seu perfil, incluindo nome, e-mail e senha.
-- **Parâmetros da Solicitação**:
-  - `name` (string, opcional): Novo nome do usuário.
-  - `email` (string, opcional): Novo endereço de e-mail do usuário.
-  - `password` (string, opcional): Nova senha do usuário.
-  - `old_password` (string, obrigatório se uma nova senha for fornecida): Senha antiga do usuário.
-- **Cabeçalho de Autenticação**:
-  - `Authorization` (string, obrigatório): Token de autenticação de usuário válido.
-- **Resposta de Sucesso**:
-  - Código de status: 200 (OK)
-- **Resposta de Erro**:
-  - Pode retornar um código de erro 401 (Unauthorized) se o token de autenticação for inválido.
-  - Pode retornar um código de erro 400 (Bad Request) se a solicitação estiver ausente de informações obrigatórias ou se o e-mail fornecido já estiver em uso.
-  - Pode retornar um código de erro 404 (Not Found) se o usuário não for encontrado.
-  - Pode retornar um código de erro 422 (Unprocessable Entity) se a senha antiga não corresponder à senha atual ou se a nova senha for igual à senha antiga.
+- **Description**: Allows an authenticated user to update their profile, including name, email, and password.
+- **Request Parameters**:
+  - `name` (string, optional): New user's name.
+  - `email` (string, optional): New user's email address.
+  - `password` (string, optional): New user's password.
+  - `old_password` (string, required if a new password is provided): User's old password.
+- **Authentication Header**:
+  - `Authorization` (string, required): Valid user authentication token.
+- **Success Response**:
+  - Status Code: 200 (OK)
+- **Error Response**:
+  - It may return a 401 (Unauthorized) error code if the authentication token is invalid.
+  - It may return a 400 (Bad Request) error code if the request is missing mandatory information or if the provided email is already in use.
+  - It may return a 404 (Not Found) error code if the user is not found.
+  - It may return a 422 (Unprocessable Entity) error code if the old password does not match the current password or if the new password is the same as the old password.
 
-#### Exemplo de Solicitação:
+#### Example Request:
 ```http
 PUT /api/users
-Authorization: Bearer token_de_autenticacao
+Authorization: Bearer authentication_token
 Content-Type: application/json
 
 {
-  "name": "Novo Nome",
-  "email": "novo_email@example.com",
-  "password": "nova_senha_segura",
-  "old_password": "senha_atual"
+  "name": "New Name",
+  "email": "new_email@example.com",
+  "password": "new_secure_password",
+  "old_password": "current_password"
 }
 ```
 
-### 3. Criar uma Nova Nota
+### 3. Create a New Note
 
-- **Método HTTP**: POST
+- **HTTP Method**: POST
 - **Endpoint**: `/api/notes`
-- **Descrição**: Cria uma nova nota no banco de dados.
-- **Parâmetros da Solicitação**:
-  - `title` (string, obrigatório): Título da nota.
-  - `description` (string, opcional): Descrição da nota.
-  - `tags` (array de strings, opcional): Lista de tags associadas à nota.
-  - `links` (array de strings, opcional): Lista de links relacionados à nota.
-- **Cabeçalho de Autenticação**:
-  - `Authorization` (string, obrigatório): Token de autenticação de usuário válido.
-- **Resposta de Sucesso**:
-  - Código de status: 200 (OK)
-- **Resposta de Erro**:
-  - Pode retornar um código de erro 401 (Unauthorized) se o token de autenticação for inválido ou 400 (Bad Request) se a solicitação estiver ausente de informações obrigatórias.
+- **Description**: Creates a new note in the database.
+- **Request Parameters**:
+  - `title` (string, required): Note title.
+  - `description` (string, optional): Note description.
+  - `tags` (array of strings, optional): List of tags associated with the note.
+  - `links` (array of strings, optional): List of links related to the note.
+- **Authentication Header**:
+  - `Authorization` (string, required): Valid user authentication token.
+- **Success Response**:
+  - Status Code: 200 (OK)
+- **Error Response**:
+  - It may return a 401 (Unauthorized) error code if the authentication token is invalid or a 400 (Bad Request) if the request is missing mandatory information.
 
-#### Exemplo de Solicitação:
+#### Example Request:
 ```http
 POST /api/notes
-Authorization: Bearer token_de_autenticacao
+Authorization: Bearer authentication_token
 Content-Type: application/json
 
 {
-  "title": "Minha Nova Nota",
-  "description": "Descrição da nota",
+  "title": "My New Note",
+  "description": "Note description",
   "tags": ["tag1", "tag2"],
   "links": ["https://link1.com", "https://link2.com"]
 }
 ```
 
-### 4. Obter Detalhes de uma Nota
+### 4. Get Note Details
 
-- **Método HTTP**: GET
+- **HTTP Method**: GET
 - **Endpoint**: `/api/notes/:id`
-- **Descrição**: Retorna os detalhes de uma nota específica com base no ID fornecido na URL.
-- **Parâmetros da Solicitação**:
-  - `id` (string, obrigatório): ID único da nota.
-- **Cabeçalho de Autenticação**:
-  - `Authorization` (string, obrigatório): Token de autenticação de usuário válido.
-- **Resposta de Sucesso**:
-  - Código de status: 200 (OK)
-- **Resposta de Erro**:
-  - Pode retornar um código de erro 401 (Unauthorized) se o token de autenticação for inválido ou um código de erro 404 (Not Found) se a nota
+- **Description**: Returns details of a specific note based on the provided ID in the URL.
+- **Request Parameters**:
+  - `id` (string, required): Unique ID of the note.
+- **Authentication Header**:
+  - `Authorization` (string, required): Valid user authentication token.
+- **Success Response**:
+  - Status Code: 200 (OK)
+- **Error Response**:
+  - It may return a 401 (Unauthorized) error code if the authentication token is invalid or a 404 (Not Found) if the note
+```
