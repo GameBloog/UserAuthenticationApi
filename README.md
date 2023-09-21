@@ -7,6 +7,29 @@ Welcome to the User Authentication API. This API allows you to create new users,
 
 This API was developed in Node.js and aims to create new users in the database, authenticate existing users on the platform, and provide functionality related to notes and tags. It supports the HTTP methods GET, POST, PUT, and DELETE.
 
+## Available Scripts
+
+In the project directory, you can run:
+
+### `npm start`
+
+Starts the API in production mode using [PM2](https://pm2.io/). Make sure you have configured your ecosystem in `ecosystem.config.js`.
+
+
+### `npm start`
+
+Starts the API in development mode using Nodemon.
+
+### `npm dev`
+
+Runs the latest database migration using Knex.
+
+### `npm migrate`
+
+Launches the test runner Jest in watch mode.
+
+### `npm test`
+
 ## Authentication
 
 To access protected endpoints, you need to provide a valid authentication token in the authorization header (`Authorization: Bearer authentication_token`). You can obtain the token by logging in using the `/api/sessions` endpoint.
